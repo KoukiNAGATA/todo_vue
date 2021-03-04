@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TODO App</title>
+        <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap">
+    </head>
+    <body>
+        <div id="app">
+            <h1>TODO list</h1>
+            <!-- 絞り込みラジオボタン -->
+            <label class="ECM_RadioInput" v-for="label in options">
+            <input type="radio"
+                class="ECM_RadioInput-Input"
+                v-model="current"
+                v-bind:value="label.value">
+                <span class="ECM_RadioInput-DummyInput"></span>
+                {{ label.label }}
+            </label>
+            <h3>Displays {{ computedTodos.length }} in order</h3>
+            <!-- ToDo テーブル -->
+            <table>
+                <!-- テーブルヘッダー -->
+                <thead v-pre>
+                    <tr>
+                        <th class="id">ID</th>
+                        <th class="comment">comment</th>
+                        <th class="state">status</th>
+                        <th class="button">-</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ここに <tr> で ToDo の要素を1行づつ繰り返し表示 -->
+                    <tr v-for="item in computedTodos" v-bind:key="item.id" v-bind:class="{done:item.state}">
+                        <!-- 要素の情報 -->
+                        <th>{{ item.id }}</th>
+                        <td>{{ item.comment }}</td>
+                        <td class="state">
+                        <!-- 状態変更ボタン -->
+                            <button class="button-primary"　v-on:click="doChangeState(item)">
+                                {{ labels[item.state] }}
+                            </button>
+                        </td>
+                        <td>
+                            <!-- 削除ボタン -->
+                            <button class="button-danger"　v-on:click="doRemove(item)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 新規登録フォーム -->
+            <h2>Add a new task</h2>
+            <form class="add-form" v-on:submit.prevent="doAdd">
+                <!-- コメント入力フォーム -->
+                comment <input type="text" ref="comment">
+                <!-- 追加ボタン -->
+                <button class="button-primary" type="submit">Add</button>
+            </form>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
