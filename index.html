@@ -34,7 +34,7 @@
                     <!-- ここに <tr> で ToDo の要素を1行づつ繰り返し表示 -->
                     <tr v-for="item in computedTodos" v-bind:key="item.id" v-bind:class="{done:item.state}">
                         <!-- 要素の情報 -->
-                        <th>{{ item.id }}</th>
+                        <th>{{ item.id + 1 }}</th>
                         <td>{{ item.comment }}</td>
                         <td class="state">
                         <!-- 状態変更ボタン -->
